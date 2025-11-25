@@ -1,0 +1,31 @@
+<div class="search-container">
+  <form #f="ngForm" (ngSubmit)="Search(f)">
+    <input type="text" name="keywords" ngModel placeholder="Keywords">
+
+    <input type="number" name="price_min" ngModel placeholder="Min price">
+    <input type="number" name="price_max" ngModel placeholder="Max price">
+
+    <select name="sort_by" ngModel>
+      <option value="">Sort by</option>
+      <option value="price">Price</option>
+      <option value="rating">Rating</option>
+    </select>
+
+    <select name="sort_direction" ngModel>
+      <option value="">Direction</option>
+      <option value="asc">ASC</option>
+      <option value="desc">DESC</option>
+    </select>
+
+    <button type="submit">Search</button>
+  </form>
+</div>
+
+<hr>
+
+<div *ngFor="let p of products" class="product-card">
+  <h3>{{ p.name }}</h3>
+  <p>{{ p.price }}</p>
+</div>
+
+

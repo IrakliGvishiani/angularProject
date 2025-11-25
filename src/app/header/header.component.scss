@@ -1,0 +1,49 @@
+.app-header {
+  width: 100%;
+  height: 70px;
+  background: #89bea9;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  overflow: hidden;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.logo {
+  height: 40px;
+}
+
+nav ul {
+  display: flex;
+  gap: 25px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.right a {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  background: rgb(93, 212, 233);
+  padding: 8px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.right a:hover {
+  background: rgb(60, 152, 168);
+}
+

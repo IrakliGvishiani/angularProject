@@ -1,0 +1,90 @@
+/* Search form styling */
+.search-container {
+    margin-top: 200px;
+    margin-left: 200px;
+  display: flex;
+  justify-content: start;
+  align-items: center; /* form ცენტრში */
+  margin-bottom: 20px;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: start;
+    justify-content: center;
+
+    width: 15%;               /* form-ის სიგანე 15% */
+    min-width: 250px;         /* მინიმალური სიგანე პატარა ეკრანზე */
+    padding: 20px;            /* შიგნით padding */
+    border: 2px solid #ccc;   /* გარე 2px ბორდერი */
+    border-radius: 50px;      /* fully rounded */
+    box-sizing: border-box;
+
+    input,
+    select {
+      padding: 10px 20px;
+      width: 100%;            /* input–ები form–ში სრულად */
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 25px;    /* pill–shape input */
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 10px 20px;
+      width: 100%;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      font-size: 14px;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+  }
+}
+
+/* Product cards styling */
+.product-card {
+  margin-top: 15px;
+  padding: 12px;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  background-color: #fafafa;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+
+  h3 {
+    font-weight: bold;
+    margin: 0 0 5px 0;
+    font-size: 16px;
+  }
+
+  p {
+    margin: 0;
+    color: #555;
+    font-size: 14px;
+  }
+}
+
+/* Responsive for mobile */
+@media (max-width: 600px) {
+  .search-container {
+    justify-content: stretch;
+  }
+
+  .search-container form {
+    width: 100%; /* პატარა ეკრანზე სრულად */
+    min-width: unset;
+
+    input,
+    select,
+    button {
+      width: 100%;
+    }
+  }
+}
