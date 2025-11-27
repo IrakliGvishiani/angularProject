@@ -1,0 +1,115 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  gap: 20px;
+}
+
+.profile-card {
+  display: flex;
+  flex-direction: row;
+  max-width: 800px;
+  width: 100%;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  padding: 30px;          // ცოტა მეტი padding
+  gap: 30px;              // avatars და user-main შორის უფრო დიდი gap
+  min-height: 300px;      // სიმაღლე გაზრდილია
+}
+
+.user-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px 30px;         
+  margin-top: 15px;
+}
+
+.detail strong { color: #333; }
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: #ddd;
+  background-size: cover;
+  background-position: center;
+}
+
+.user-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+
+
+
+.buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+button {
+  padding: 8px 16px;
+  border: none;
+  background-color: #5AE6C8;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #47b9a1;
+}
+
+.card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 820px;
+  width: 100%;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.edit-card .columns {
+  display: flex;
+  gap: 20px;
+}
+
+.edit-card .col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.password-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+input, select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.passes {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}

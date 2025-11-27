@@ -1,0 +1,19 @@
+
+.friday-image-container{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    .friday-image {
+      width: 80%;
+      height: 350px; 
+      background-image: url('../../public/logoblack.png');
+      background-position: center center; 
+      background-repeat: no-repeat;
+      background-size: cover; 
+      border-radius: 8px; 
+    }
+
+}
+

@@ -1,0 +1,18 @@
+<h2>ჩემი კალათა</h2>
+
+<div *ngIf="loading">იტვირთება...</div>
+<div *ngIf="error">{{ error }}</div>
+
+<div *ngIf="!loading && cart">
+  <p><strong>პროდუქტების რაოდენობა:</strong> {{ cart.total?.products }}</p>
+  <p><strong>რაოდენობა:</strong> {{ cart.total?.quantity }}</p>
+  <p><strong>სულ ფასი:</strong> ${{ cart.total?.price?.current }}</p>
+
+  <div *ngFor="let p of cart.products" class="cart-item">
+    <p>პროდუქტი ID: {{ p.productId }}</p>
+    <p>რაოდენობა: {{ p.quantity }}</p>
+    <p>ფასი ერთეულზე: ${{ p.pricePerQuantity }}</p>
+  </div>
+</div>
+
+<div *ngIf="!loading && !cart">კალათა ცარიელია</div>

@@ -1,0 +1,71 @@
+<div class="profile-container">
+  <div class="profile-card">
+    <div class="avatar" [ngStyle]="{'background-image': 'url(' + user.avatar + ')'}"></div>
+
+    <div class="user-main">
+      <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+
+      <div class="user-details">
+        <div class="detail"><strong>Email:</strong> {{ user.email }}</div>
+        <div class="detail"><strong>Phone:</strong> {{ user.phone }}</div>
+        <div class="detail"><strong>Age:</strong> {{ user.age }}</div>
+        <div class="detail"><strong>Address:</strong> {{ user.address }}</div>
+        <div class="detail"><strong>Zipcode:</strong> {{ user.zipcode }}</div>
+        <div class="detail"><strong>Gender:</strong> {{ user.gender }}</div>
+      </div>
+
+      <div class="buttons">
+        <button (click)="editInfo()">Update Info</button>
+        <button (click)="changePassword()">Change Password</button>
+        <button (click)="recoverPassword()">Recover Password</button>
+      </div>
+
+      <div *ngIf="message" class="message">{{ message }}</div>
+    </div>
+  </div>
+
+  <!-- Update Info Card -->
+  <div *ngIf="editing" class="card edit-card">
+    <h3>Edit Info</h3>
+    <form [formGroup]="editForm" (ngSubmit)="submitEdit()">
+      <div class="columns">
+        <div class="col">
+          <input formControlName="firstName" placeholder="First Name" />
+          <input formControlName="lastName" placeholder="Last Name" />
+          <input type="number" formControlName="age" placeholder="Age" />
+          <input formControlName="email" placeholder="Email" />
+        </div>
+        <div class="col">
+          <input formControlName="address" placeholder="Address" />
+          <input formControlName="phone" placeholder="Phone" />
+          <input formControlName="zipcode" placeholder="Zipcode" />
+          <input formControlName="avatar" placeholder="Avatar URL" />
+          <select formControlName="gender">
+            <option value="MALE">Male</option>
+            <option value="FEMALE">Female</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-buttons">
+        <button type="submit">Save</button>
+        <button type="button" (click)="cancelEdit()">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Change Password Card -->
+  <div *ngIf="changingPassword" class="card password-card">
+    <h3>Change Password</h3>
+    <form [formGroup]="passwordForm" (ngSubmit)="submitPassword()">
+      <div class="passes">
+        <input type="password" formControlName="oldPassword" placeholder="Old Password" />
+        <input type="password" formControlName="newPassword" placeholder="New Password" />
+      </div>
+      <div class="form-buttons">
+        <button type="submit">Save</button>
+        <button type="button" (click)="cancelPassword()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

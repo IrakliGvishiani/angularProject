@@ -1,36 +1,41 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { CartService } from '../services/cart.service';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule, RouterModule]
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   isLoggedIn = false;
+  userAvatar: string | null = null;
+  cartCount: number = 0;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private cartService: CartService) {}
 
-  login() {
-    this.isLoggedIn = true;
-    console.log('Logged in');
-    this.router.navigate(['/login']); // Login page-ზე გადამისამართება
+  ngOnInit(): void {
+    this.loadCartCount();
+    this.cartService.cartUpdated$.subscribe(() => this.loadCartCount());
   }
 
-  logout() {
-    this.isLoggedIn = false;
-    console.log('Logged out');
-    this.router.navigate(['/']); // მთავარი გვერდზე დაბრუნება
+  loadCartCount() {
+    this.cartService.getCart().subscribe({
+      next: (res) => {
+        this.cartCount = res?.total?.quantity || 0;
+      },
+      error: () => (this.cartCount = 0),
+    });
   }
 
-  goToRegister() {
-    this.router.navigate(['/register']); // Register page-ზე გადამისამართება
-  }
+  goHome() { this.router.navigate(['/home']); }
+  login() { this.router.navigate(['/login']); }
+  goToRegister() { this.router.navigate(['/register']); }
+  goToProfile() { this.router.navigate(['/profile']); }
+  goToCart() { this.router.navigate(['/cart']); }
+
+  setUserAvatar(url: string) { this.userAvatar = url; }
 }
-  
-  
-
-

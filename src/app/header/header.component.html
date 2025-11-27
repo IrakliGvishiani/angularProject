@@ -1,26 +1,27 @@
-
-
 <header class="app-header">
   <div class="left">
-    <img src="assets/images/logo.svg" alt="Logo" class="logo" />
-    <nav>
-      <ul>
-        <li><a routerLink="/">Home</a></li>
-        <li><a routerLink="/about">About</a></li>
-        <li><a routerLink="/contact">Contact</a></li>
-      </ul>
-    </nav>
+    <img src="logo.png" alt="Logo" class="logo" (click)="goHome()" />
   </div>
 
-  <div class="right">
-  <ng-container *ngIf="!isLoggedIn">
-    <a (click)="login()">Login</a> | 
-    <a (click)="goToRegister()">Register</a>
-  </ng-container>
+  
 
-  <a *ngIf="isLoggedIn" (click)="logout()">Logout</a>
-</div>
+  <div class="rightcomps">
+    <div class="cart-icon" (click)="goToCart()">
+    <i class="fa-solid fa-cart-arrow-down fa-sm"></i>
+    <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
+  </div>
 
+    <div class="right">
+      <ng-container *ngIf="!isLoggedIn">
+        <a (click)="login()">Login</a> | 
+        <a (click)="goToRegister()">Register</a>
+      </ng-container>
+    </div>
+    <div class="right-right">
+      <div class="user-avatar"
+        [ngStyle]="{'background-image': userAvatar ? 'url(' + userAvatar + ')' : ''}" 
+        (click)="goToProfile()">
+      </div>
+    </div>
+  </div>
 </header>
-
-

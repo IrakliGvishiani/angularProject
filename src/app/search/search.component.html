@@ -1,13 +1,23 @@
-<div class="search-container">
+<div class="leftside">
+  <div class="search-container">
   <form #f="ngForm" (ngSubmit)="Search(f)">
     <input type="text" name="keywords" ngModel placeholder="Keywords">
-
+    <input type="text" name="brand" ngModel placeholder="Brand">
     <input type="number" name="price_min" ngModel placeholder="Min price">
     <input type="number" name="price_max" ngModel placeholder="Max price">
+    <input type="number" name="rating" ngModel placeholder="Min Rating (1-5)">
+    
+
+    <select name="category_id" ngModel>
+      <option value="">Select Category</option>
+      <option *ngFor="let c of categories" [value]="c.id">{{ c.name }}</option>
+    </select>
+
+
 
     <select name="sort_by" ngModel>
       <option value="">Sort by</option>
-      <option value="price">Price</option>
+      <option value="price.current">Price</option>
       <option value="rating">Rating</option>
     </select>
 
@@ -17,15 +27,71 @@
       <option value="desc">DESC</option>
     </select>
 
-    <button type="submit">Search</button>
+    <div class="form-buttons">
+    <button type="submit" class="submit-btn">Search</button>
+    <button type="button" class="reset-btn" (click)="resetForm(f)">Reset</button>
+  </div>
+
+
   </form>
 </div>
-
-<hr>
-
-<div *ngFor="let p of products" class="product-card">
-  <h3>{{ p.name }}</h3>
-  <p>{{ p.price }}</p>
 </div>
 
 
+
+
+  <div class="slider-container" *ngIf="filteredProducts.length">
+  <div class="product-grid">
+    <div class="product-card" *ngFor="let p of pagedProducts()">
+      <img [src]="p.thumbnail" [alt]="p.title" class="card-img">
+
+      <div class="card-body">
+        <h3>{{ p.title }}</h3>
+        <p><strong>Brand:</strong> {{ p.brand }}</p>
+
+        <p>
+          <strong>Price:</strong> ${{ p.price.current }}
+          <span *ngIf="p.price.beforeDiscount > p.price.current" class="before-discount">
+            ${{ p.price.beforeDiscount }}
+          </span>
+          <span *ngIf="p.price.discountPercentage > 0" class="discount">
+            ({{ p.price.discountPercentage }}% off)
+          </span>
+        </p>
+
+        <p>
+          <strong>Rating:</strong>
+          <span *ngFor="let s of getStars(p.rating)">
+            <ng-container [ngSwitch]="s">
+              <span *ngSwitchCase="'full'">★</span>
+              <span *ngSwitchCase="'half'">⯪</span>
+              <span *ngSwitchCase="'empty'">☆</span>
+            </ng-container>
+          </span>
+          ({{ p.rating | number:'1.1-1' }})
+        </p>
+
+        <p><strong>Category:</strong> {{ p.category.name }}</p>
+        <p class="description">{{ p.description }}</p>
+      </div>
+
+      <div class="card-buttons">
+        <button [routerLink]="['/product', p._id]">დეტალური ინფორმაცია</button>
+        <button (click)="addToCart(p._id)">კალათში დამატება</button>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">&lt;</button>
+    <button *ngFor="let p of [].constructor(totalPages); let i = index"
+            [class.active]="i+1 === currentPage"
+            (click)="goToPage(i+1)">
+      {{ i+1 }}
+    </button>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">&gt;</button>
+  </div>
+</div>

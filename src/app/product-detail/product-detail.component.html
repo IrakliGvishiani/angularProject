@@ -1,0 +1,103 @@
+<div *ngIf="loading" class="loading">Loading product details...</div>
+<div *ngIf="error" class="error">{{ error }}</div>
+
+<div *ngIf="product" class="product-detail-layout">
+
+  <!-- Left side -->
+  <div class="images-section">
+
+    <!-- Main image -->
+    <div class="main-image" *ngIf="product.images?.length">
+      <img 
+        [src]="product.images[0]" 
+        alt="{{ product.title }}"
+        (click)="openZoom(product.images[0])"
+      >
+    </div>
+
+    <!-- Small grid images -->
+    <div class="grid-images" *ngIf="product.images?.length > 1">
+      <div class="grid-image" 
+           *ngFor="let img of product.images.slice(1)">
+        <img 
+          [src]="img" 
+          alt="{{ product.title }}"
+          (click)="openZoom(img)"
+        >
+      </div>
+    </div>
+
+  </div>
+
+  
+  
+  <div class="zoom-modal" *ngIf="isZoomOpen">
+  
+  <!-- CLOSE BUTTON -->
+  <button class="zoom-close" (click)="closeZoom(); $event.stopPropagation()">×</button>
+
+  <!-- PREV -->
+  <button class="zoom-prev" (click)="prevImage(); $event.stopPropagation()">‹</button>
+
+  <!-- Zoomed image -->
+  <img 
+    [src]="zoomedImage" 
+    class="zoom-img" 
+    (wheel)="onZoomWheel($event)"
+  > 
+
+  <!-- NEXT -->
+  <button class="zoom-next" (click)="nextImage(); $event.stopPropagation()">›</button>
+</div>
+
+
+
+
+
+
+  <!-- Right side -->
+  <div class="info-section">
+
+    <div class="info-top">
+        <h1>{{ product.title }}</h1>
+
+        <p class="price">
+          Price: ${{ product.price.current }} ,
+          <span *ngIf="product.price.beforeDiscount > product.price.current" class="before-discount">
+            ${{ product.price.beforeDiscount }}
+          </span>
+          <span *ngIf="product.price.discountPercentage > 0" class="discount">
+            ({{ product.price.discountPercentage }}% off)
+          </span>
+        </p>
+
+        <p><strong>Brand:</strong> {{ product.brand }}</p>
+        <p><strong>Category:</strong> {{ product.category?.name }}</p>
+        <p class="rating"><strong>Rating: </strong>
+            <span class="rating-value">{{ product.rating }}</span>
+            <span class="stars">
+              <ng-container *ngFor="let i of [1,2,3,4,5]; let idx = index">
+                <span>
+                  {{ 
+                    product.rating >= i ? '★' : 
+                    product.rating >= i - 0.5 ? '⯪' : 
+                    '☆' 
+                  }}
+                </span>
+              </ng-container>
+            </span>
+        </p>
+
+        <p><strong>Warranty:</strong> {{ product.warranty }} year(s)</p>
+        <p><strong>Stock:</strong> {{ product.stock > 0 ? product.stock : 'Out of stock' }}</p>
+    </div>
+
+    <div class="info-bottom">
+      <p class="description">{{ product.description }}</p>
+
+      <button class="buy-btn">Buy Now</button>
+    </div>
+
+  </div>
+
+</div>

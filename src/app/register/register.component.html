@@ -1,0 +1,53 @@
+<div class="register-container">
+  <h2 style="letter-spacing: 4px;">REGISTER</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="submit()">
+
+    <div class="input-wrapper" [class.invalid]="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
+      <input formControlName="firstName" placeholder="First Name" />
+    </div>
+
+    <div class="input-wrapper" [class.invalid]="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
+      <input formControlName="lastName" placeholder="Last Name" />
+    </div>
+
+    <div class="input-wrapper" [class.invalid]="registerForm.get('age')?.invalid && registerForm.get('age')?.touched">
+      <input type="number" formControlName="age" placeholder="Age" />
+    </div>
+
+    <div class="input-wrapper" [class.invalid]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+      <input type="email" formControlName="email" placeholder="Email" />
+    </div>
+
+    <div class="input-wrapper" [class.invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+      <input type="password" formControlName="password" placeholder="Password" />
+    </div>
+
+    <div class="input-wrapper" [class.invalid]="registerForm.get('address')?.invalid && registerForm.get('address')?.touched">
+      <input formControlName="address" placeholder="Address" />
+    </div>
+
+    <div class="input-wrapper">
+      <input formControlName="phone" placeholder="Phone" />
+    </div>
+
+    <div class="input-wrapper">
+      <input formControlName="zipcode" placeholder="Zipcode" />
+    </div>
+
+    <div class="input-wrapper">
+      <input formControlName="avatar" placeholder="Avatar URL" />
+    </div>
+
+    <div class="input-wrapper" [class.invalid]="registerForm.get('gender')?.invalid && registerForm.get('gender')?.touched">
+      <select formControlName="gender" >
+        <option value="" disabled selected>Select Gender</option>
+        <option value="MALE">Male</option>
+        <option value="FEMALE">Female</option>
+      </select>
+    </div>
+
+    <button type="submit" [disabled]="registerForm.invalid || isSubmitting">Register</button>
+
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+  </form>
+</div>

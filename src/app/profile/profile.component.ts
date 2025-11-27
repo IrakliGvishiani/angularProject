@@ -1,0 +1,113 @@
+import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-profile',
+  standalone: true,
+  imports: [CommonModule, HttpClientModule, ReactiveFormsModule],
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss'],
+})
+export class ProfileComponent implements OnInit {
+  user: any = {
+    firstName: '',
+    lastName: '',
+    age: null,
+    email: '',
+    address: '',
+    phone: '',
+    zipcode: '',
+    avatar: '',
+    gender: ''
+  };
+
+  editing = false;
+  changingPassword = false;
+  message = '';
+
+  editForm: FormGroup;
+  passwordForm: FormGroup;
+
+  constructor(private http: HttpClient, private fb: FormBuilder) {
+    this.editForm = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      age: [null, Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      address: [''],
+      phone: [''],
+      zipcode: [''],
+      avatar: [''],
+      gender: ['MALE', Validators.required],
+    });
+
+    this.passwordForm = this.fb.group({
+      oldPassword: ['', Validators.required],
+      newPassword: ['', Validators.required],
+    });
+  }
+
+  ngOnInit() {
+    // აქ შეგიძლიათ API call, მაგალითად: GET /auth/me
+    this.http.get<any>('https://api.everrest.educata.dev/auth/me')
+      .subscribe(res => {
+        this.user = res;
+        this.editForm.patchValue(res);
+      });
+  }
+
+  editInfo() {
+    this.editing = true;
+    this.changingPassword = false;
+  }
+
+  cancelEdit() {
+    this.editing = false;
+  }
+
+  submitEdit() {
+    if (this.editForm.invalid) return;
+    this.http.post('https://api.everrest.educata.dev/auth/update', this.editForm.value)
+      .subscribe({
+        next: res => {
+          this.user = {...this.user, ...this.editForm.value};
+          this.editing = false;
+          this.message = 'Info updated successfully';
+        },
+        error: err => this.message = 'Failed to update info'
+      });
+  }
+
+  recoverPassword() {
+    this.http.post('https://api.everrest.educata.dev/auth/recovery', { email: this.user.email })
+      .subscribe({
+        next: res => this.message = 'Recovery email sent if account exists',
+        error: err => this.message = 'Failed to send recovery email'
+      });
+  }
+
+  changePassword() {
+    this.changingPassword = true;
+    this.editing = false;
+  }
+
+  cancelPassword() {
+    this.changingPassword = false;
+    this.passwordForm.reset();
+  }
+
+  submitPassword() {
+    if (this.passwordForm.invalid) return;
+  this.http.post('https://api.everrest.educata.dev/auth/change_password', this.passwordForm.value)
+    .subscribe({
+      next: res => {
+        this.changingPassword = false;
+        this.passwordForm.reset(); // Password field-ების გასუფთავება
+        this.message = 'Password changed successfully';
+      },
+      error: err => this.message = 'Failed to change password'
+    });
+  }
+}
