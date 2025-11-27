@@ -25,7 +25,7 @@ export class CartComponent implements OnInit {
   loadCart() {
     this.loading = true;
     this.error = null;
-    this.cartService.getCart().subscribe({
+    this.cartService.gets('https://api.everrest.educata.dev/shop/cart').subscribe({
       next: (res) => {
         this.cart = res;
         this.loading = false;

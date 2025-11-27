@@ -18,10 +18,9 @@
       </ng-container>
     </div>
     <div class="right-right">
-      <div class="user-avatar"
-        [ngStyle]="{'background-image': userAvatar ? 'url(' + userAvatar + ')' : ''}" 
-        (click)="goToProfile()">
-      </div>
+      <img class="user-avatar"
+         
+        (click)="goToProfile()" [src]="data.avatar">
     </div>
   </div>
 </header>

@@ -130,34 +130,84 @@ export class SearchComponent implements OnInit {
     this.totalPages = Math.ceil(this.filteredProducts.length / this.pageSize);
   }
 
- 
+  access = localStorage.getItem('access_token')
+ refresh = localStorage.getItem('refresh_token')
 
-  addToCart(productId: string) {
-    const token = localStorage.getItem('token');
+  addToCart(productId : string) {
 
-    if (!token) {
-      alert('გთხოვთ, შეხვიდეთ სისტემაში');
-      this.router.navigate(['/login']); 
-      return;
-    }
 
-    this.cartService.addToCart(productId, 1).subscribe({
-      next: (res) => {
-        alert('ნივთი დაემატა კალათაში');
-        this.cartService.notifyCartUpdate();
-      },
-      error: (err) => {
-        console.error('Add to cart error', err);
 
-        
-        if (err.status === 401 || err.status === 400) {
-          alert('გთხოვთ, შეხვიდეთ სისტემაში');
-          this.router.navigate(['/login']);
-        } else {
-          alert('დამატება ვერ მოხერხდა');
+          this.cartService.gets('https://api.everrest.educata.dev/shop/cart')
+      .subscribe({
+        next: s => {
+          console.log(s);
+
+          this.cartService.patch('https://api.everrest.educata.dev/shop/cart/product',{
+            id: productId,
+            quantity : 1
+          }).subscribe({
+            next: res => {
+              console.log(`Added to cart!`);
+              alert('added to cart!')
+            },
+            error: err => {
+              if(err.status == 400){
+                alert('no products in stock!')
+              }
+              
+            }
+          })
+          
+        },
+        error: err => {
+          console.log(err.status);
+          if(err.status == 409){
+            this.cartService.postO('https://api.everrest.educata.dev/shop/cart/product', {
+              id: productId,
+              quantity : 1
+            })
+            .subscribe({
+              next: res => {
+                alert('cart created!')
+                console.log(res);
+                
+              },
+              error: err => {
+                console.log(err);
+                
+              }
+            })
+          }
         }
-      }
-    });
+      })
+
+    // if (this.access == null || this.refresh == null) {
+    //   alert('გთხოვთ, შეხვიდეთ სისტემაში');
+    //   this.router.navigate(['/login']); 
+    //   return;
+    // }
+
+    // this.cartService.addToCart(productId, 1).subscribe({
+    //   next: (res) => {
+    //     alert('ნივთი დაემატა კალათაში');
+    //     this.cartService.notifyCartUpdate();
+    //     console.log(res);
+        
+    //   },
+    //   error: (err) => {
+    //     console.error('Add to cart error', err);
+    //     console.log(err);
+        
+        
+    //     if (err.status === 401 || err.status === 400) {
+    //       alert('გთხოვთ, შეხვიდეთ სისტემაში');
+    //       this.router.navigate(['/login']);
+    //     } else {
+    //       alert('დამატება ვერ მოხერხდა');
+    //     }
+    //   }
+    // });
+    
   }
 
 

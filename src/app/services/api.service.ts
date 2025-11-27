@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -40,6 +40,16 @@ export class ApiService {
   getProductById(id: string) {
     return this.http.get<any>(`https://api.everrest.educata.dev/shop/products/id/${id}`);
   }
+
+    getAuth<T = any>(): Observable<T> {
+  const token = localStorage.getItem('access_token');
+
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`
+  });
+
+  return this.http.get<T>('https://api.everrest.educata.dev/auth', { headers });
+}
 
   
 }

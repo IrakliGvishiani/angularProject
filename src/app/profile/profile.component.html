@@ -1,17 +1,17 @@
 <div class="profile-container">
   <div class="profile-card">
-    <div class="avatar" [ngStyle]="{'background-image': 'url(' + user.avatar + ')'}"></div>
+    <img class="avatar" [src]="data.avatar">
 
     <div class="user-main">
-      <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+      <h2>{{ data.firstName }} {{ data.lastName }}</h2>
 
       <div class="user-details">
-        <div class="detail"><strong>Email:</strong> {{ user.email }}</div>
-        <div class="detail"><strong>Phone:</strong> {{ user.phone }}</div>
-        <div class="detail"><strong>Age:</strong> {{ user.age }}</div>
-        <div class="detail"><strong>Address:</strong> {{ user.address }}</div>
-        <div class="detail"><strong>Zipcode:</strong> {{ user.zipcode }}</div>
-        <div class="detail"><strong>Gender:</strong> {{ user.gender }}</div>
+        <div class="detail"><strong>Email:</strong> {{ data.email }}</div>
+        <div class="detail"><strong>Phone:</strong> {{ data.phone}}</div>
+        <div class="detail"><strong>Age:</strong> {{ data.age }}</div>
+        <div class="detail"><strong>Address:</strong> {{ data.address }}</div>
+        <div class="detail"><strong>Zipcode:</strong> {{ data.zipcode }}</div>
+        <div class="detail"><strong>Gender:</strong> {{ data.gender }}</div>
       </div>
 
       <div class="buttons">

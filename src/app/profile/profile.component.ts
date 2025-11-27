@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { CartService } from '../services/cart.service';
+import { ApiService } from '../services/api.service';
+import { UserInfo } from '../models/profile';
 
 @Component({
   selector: 'app-profile',
@@ -30,7 +33,7 @@ export class ProfileComponent implements OnInit {
   editForm: FormGroup;
   passwordForm: FormGroup;
 
-  constructor(private http: HttpClient, private fb: FormBuilder) {
+  constructor(private http: HttpClient, private fb: FormBuilder,private api : ApiService) {
     this.editForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -51,17 +54,36 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     
-    this.http.get<any>('https://api.everrest.educata.dev/auth/me')
-      .subscribe(res => {
-        this.user = res;
-        this.editForm.patchValue(res);
-      });
+    this.getUser()
+
   }
+
+
+  getUser(){
+      this.api.getAuth()
+      .subscribe({
+        next: (resp : UserInfo)  => {
+          // console.log(resp);
+            this.data = resp
+            console.log(this.data);
+
+            
+        },
+        error: err => {
+          console.log(err);
+          
+        }
+      })
+    }
+    
 
   editInfo() {
     this.editing = true;
     this.changingPassword = false;
   }
+
+
+  data! : UserInfo
 
   cancelEdit() {
     this.editing = false;

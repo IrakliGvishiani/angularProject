@@ -38,6 +38,8 @@ export class LoginComponent {
           localStorage.setItem('access_token', res.access_token);
           localStorage.setItem('refresh_token', res.refresh_token);
           this.router.navigate(['/home']);
+          console.log(res);
+          
         },
         error: (err: any) => {
           this.errorMessage = err.error?.message || 'Login failed';
