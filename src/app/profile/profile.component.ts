@@ -50,7 +50,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    // აქ შეგიძლიათ API call, მაგალითად: GET /auth/me
+    
     this.http.get<any>('https://api.everrest.educata.dev/auth/me')
       .subscribe(res => {
         this.user = res;
@@ -104,7 +104,7 @@ export class ProfileComponent implements OnInit {
     .subscribe({
       next: res => {
         this.changingPassword = false;
-        this.passwordForm.reset(); // Password field-ების გასუფთავება
+        this.passwordForm.reset(); 
         this.message = 'Password changed successfully';
       },
       error: err => this.message = 'Failed to change password'

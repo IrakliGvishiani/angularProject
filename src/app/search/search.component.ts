@@ -137,7 +137,7 @@ export class SearchComponent implements OnInit {
 
     if (!token) {
       alert('გთხოვთ, შეხვიდეთ სისტემაში');
-      this.router.navigate(['/login']); // გადამისამართება LoginComponent-ში
+      this.router.navigate(['/login']); 
       return;
     }
 
@@ -149,7 +149,7 @@ export class SearchComponent implements OnInit {
       error: (err) => {
         console.error('Add to cart error', err);
 
-        // თუ 401 ან 400 სიგნალი მოდის
+        
         if (err.status === 401 || err.status === 400) {
           alert('გთხოვთ, შეხვიდეთ სისტემაში');
           this.router.navigate(['/login']);

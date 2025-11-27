@@ -27,12 +27,12 @@ export class CartService {
   return this.http.post(`${this.baseUrl}/product`, { id: productId, quantity }, this.authHeaders());
 }
 
-// Update quantity of a cart item (PATCH)
+
 updateCartItem(productId: string, quantity: number) {
   return this.http.patch(`${this.baseUrl}/product`, { id: productId, quantity }, this.authHeaders());
 }
 
-// Remove item from cart (DELETE)
+
 removeCartItem(productId: string) {
   return this.http.request('delete', `${this.baseUrl}/product`, { 
     headers: new HttpHeaders({ Authorization: `Bearer ${this.token}`, 'Content-Type': 'application/json' }),

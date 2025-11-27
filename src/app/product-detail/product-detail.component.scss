@@ -119,17 +119,16 @@
     }
   }
 }
-/* ----------------------------- */
-/*       ZOOM MODAL + ARROWS     */
-/* ----------------------------- */
 
-/* REMOVE PSEUDO ELEMENTS */
+
+
+
 .zoom-modal::before,
 .zoom-modal::after {
   content: none;
 }
 
-/* Zoom modal */
+
 .zoom-modal {
   position: fixed;
   inset: 0;
@@ -150,7 +149,7 @@
   cursor: grab;
 }
 
-/* Arrows */
+
 .zoom-prev,
 .zoom-next {
   position: absolute;
@@ -198,7 +197,7 @@
 
 .stars {
   font-size: 1.2rem;
-  color: #ffd700; // ვარსკვლავების ფერი
+  color: #ffd700; 
 
   s
 
@@ -217,7 +216,7 @@
 
 
 
-/* Responsive */
+
 @media (max-width: 1024px) {
   .product-detail-layout {
     flex-direction: column;

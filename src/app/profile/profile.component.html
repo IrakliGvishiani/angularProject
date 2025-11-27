@@ -24,7 +24,7 @@
     </div>
   </div>
 
-  <!-- Update Info Card -->
+
   <div *ngIf="editing" class="card edit-card">
     <h3>Edit Info</h3>
     <form [formGroup]="editForm" (ngSubmit)="submitEdit()">
@@ -54,7 +54,7 @@
     </form>
   </div>
 
-  <!-- Change Password Card -->
+
   <div *ngIf="changingPassword" class="card password-card">
     <h3>Change Password</h3>
     <form [formGroup]="passwordForm" (ngSubmit)="submitPassword()">

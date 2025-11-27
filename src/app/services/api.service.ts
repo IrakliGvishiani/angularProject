@@ -11,7 +11,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  // =================== Product API ===================
+
   search(filters: any) {
     let params = new HttpParams();
     Object.keys(filters).forEach(key => {

@@ -3,10 +3,10 @@
 
 <div *ngIf="product" class="product-detail-layout">
 
-  <!-- Left side -->
+
   <div class="images-section">
 
-    <!-- Main image -->
+
     <div class="main-image" *ngIf="product.images?.length">
       <img 
         [src]="product.images[0]" 
@@ -15,7 +15,7 @@
       >
     </div>
 
-    <!-- Small grid images -->
+
     <div class="grid-images" *ngIf="product.images?.length > 1">
       <div class="grid-image" 
            *ngFor="let img of product.images.slice(1)">
@@ -33,20 +33,20 @@
   
   <div class="zoom-modal" *ngIf="isZoomOpen">
   
-  <!-- CLOSE BUTTON -->
+
   <button class="zoom-close" (click)="closeZoom(); $event.stopPropagation()">×</button>
 
-  <!-- PREV -->
+
   <button class="zoom-prev" (click)="prevImage(); $event.stopPropagation()">‹</button>
 
-  <!-- Zoomed image -->
+
   <img 
     [src]="zoomedImage" 
     class="zoom-img" 
     (wheel)="onZoomWheel($event)"
   > 
 
-  <!-- NEXT -->
+
   <button class="zoom-next" (click)="nextImage(); $event.stopPropagation()">›</button>
 </div>
 
@@ -55,7 +55,7 @@
 
 
 
-  <!-- Right side -->
+
   <div class="info-section">
 
     <div class="info-top">

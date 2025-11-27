@@ -16,9 +16,9 @@ export class ProductDetailComponent implements OnInit {
   loading: boolean = true;
   error: string = '';
 
-  currentImageIndex: number = 0;   // სლაიდერი
-  isZoomOpen: boolean = false;     // ზუმის მოდალი
-  zoomedImage: string | null = null; // მიმდინარე გადიდებული ფოტო
+  currentImageIndex: number = 0;   
+  isZoomOpen: boolean = false;     
+  zoomedImage: string | null = null; 
   zoomScale: number = 1;
   constructor(private route: ActivatedRoute, private api: ApiService) {}
 
@@ -43,7 +43,7 @@ export class ProductDetailComponent implements OnInit {
     }
   }
 
-  // --- IMAGE SLIDER ---
+
   
 
 nextImage() {
@@ -60,7 +60,7 @@ prevImage() {
   this.zoomedImage = this.product.images[this.currentImageIndex];
 }
 
-  // --- ZOOM FUNCTIONS ---
+
   openZoom(img: string) {
   this.zoomedImage = img;
   this.currentImageIndex = this.product.images.indexOf(img);
@@ -71,9 +71,9 @@ prevImage() {
   onZoomWheel(event: WheelEvent) {
   event.preventDefault();
   if (event.deltaY < 0) {
-    this.zoomScale = Math.min(this.zoomScale + 0.1, 3); // max 3x
+    this.zoomScale = Math.min(this.zoomScale + 0.1, 3); 
   } else {
-    this.zoomScale = Math.max(this.zoomScale - 0.1, 1); // min 1x
+    this.zoomScale = Math.max(this.zoomScale - 0.1, 1); 
   }
   const imgEl = event.target as HTMLImageElement;
   imgEl.style.transform = `scale(${this.zoomScale})`;
